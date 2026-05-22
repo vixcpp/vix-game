@@ -5,6 +5,8 @@ standard = "c++20"
 sources = [
   "src/main.cpp",
   "src/GameApp.cpp",
+  "src/entities/Player.cpp",
+  "src/entities/Coin.cpp",
   "src/scenes/MainScene.cpp",
 ]
 

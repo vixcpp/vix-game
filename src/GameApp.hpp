@@ -16,19 +16,12 @@
 #ifndef VIX_GAME_PROJECT_GAME_APP_HPP
 #define VIX_GAME_PROJECT_GAME_APP_HPP
 
-#include <vix/game/game.hpp>
+#include <vix/game.hpp>
 
 namespace vixgame
 {
   /**
    * @brief Main application wrapper for the vix-game project.
-   *
-   * GameApp owns the Vix game application object and its runtime.
-   * It is responsible for:
-   * - configuring the game application
-   * - initializing the game runtime
-   * - registering scenes
-   * - starting the main game loop
    */
   class GameApp
   {
@@ -47,11 +40,25 @@ namespace vixgame
 
   private:
     /**
+     * @brief Build the Vix game application configuration.
+     *
+     * @return Application configuration.
+     */
+    [[nodiscard]] static vix::game::AppConfig make_app_config();
+
+    /**
      * @brief Initialize the Vix game runtime.
      *
      * @return true on success, false on failure.
      */
     [[nodiscard]] bool initialize_runtime();
+
+    /**
+     * @brief Install the window and renderer backends.
+     *
+     * @return true on success, false on failure.
+     */
+    [[nodiscard]] bool initialize_backends();
 
     /**
      * @brief Register and activate all game scenes.
@@ -64,7 +71,7 @@ namespace vixgame
     /**
      * @brief Root Vix game application.
      */
-    vix::game::App app_{};
+    vix::game::App app_;
 
     /**
      * @brief Runtime coordinator for the game application.

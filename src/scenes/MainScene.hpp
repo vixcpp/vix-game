@@ -16,7 +16,9 @@
 #ifndef VIX_GAME_PROJECT_SCENES_MAIN_SCENE_HPP
 #define VIX_GAME_PROJECT_SCENES_MAIN_SCENE_HPP
 
-#include <vix/game/game.hpp>
+#include "../entities/Coin.hpp"
+#include "../entities/Player.hpp"
+#include <vix/game.hpp>
 
 namespace vixgame
 {
@@ -44,6 +46,26 @@ namespace vixgame
      * @param frame Current frame information.
      */
     void on_update(const vix::game::Frame &frame) override;
+
+  private:
+    /**
+     * @brief Update gameplay state.
+     *
+     * @param frame Current frame.
+     */
+    void update_gameplay(const vix::game::Frame &frame);
+
+    /**
+     * @brief Render the scene.
+     *
+     * @param frame Current frame.
+     */
+    void render(const vix::game::Frame &frame);
+
+  private:
+    Player player_{};
+    Coin coin_{};
+    int score_{0};
   };
 
 } // namespace vixgame

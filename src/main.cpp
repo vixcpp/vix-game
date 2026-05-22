@@ -19,9 +19,6 @@
 /**
  * @brief Application entry point.
  *
- * main() intentionally stays small.
- * The game startup logic lives inside GameApp.
- *
  * @return Process exit code.
  */
 int main()
