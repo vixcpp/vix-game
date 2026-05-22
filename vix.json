@@ -1,0 +1,21 @@
+{
+  "name": "vix-game",
+  "deps": [],
+  "vars": {
+    "preset": "dev-ninja",
+    "log_level": "info"
+  },
+  "tasks": {
+    "dev": "vix run",
+    "build": "vix build",
+    "run": "vix run",
+    "check": {
+      "description": "Build and validate the game project",
+      "command": "vix build"
+    },
+    "export": {
+      "description": "Export the game package",
+      "command": "vix game export"
+    }
+  }
+}
