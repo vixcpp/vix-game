@@ -4,6 +4,8 @@ standard = "c++20"
 
 sources = [
   "src/main.cpp",
+  "src/GameApp.cpp",
+  "src/scenes/MainScene.cpp",
 ]
 
 include_dirs = [
