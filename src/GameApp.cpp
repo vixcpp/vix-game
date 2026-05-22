@@ -17,12 +17,13 @@
 #include "GameApp.hpp"
 #include "GameConfig.hpp"
 #include "scenes/MainScene.hpp"
+
 #include <vix/game.hpp>
 #include <vix/game/RendererBackend.hpp>
 #include <vix/game/WindowBackend.hpp>
 #include <vix/game/backends/sdl/SDLOpenGLRenderer.hpp>
 #include <vix/game/backends/sdl/SDLWindow.hpp>
-#include <vix/print.hpp>
+#include <vix/log.hpp>
 
 namespace vixgame
 {
@@ -74,7 +75,7 @@ namespace vixgame
     auto result = app_.run();
     if (!result)
     {
-      vix::print("game failed:", result.error().message());
+      vix::log::error("game failed: {}", result.error().message());
       return 1;
     }
 
@@ -87,7 +88,7 @@ namespace vixgame
     auto result = runtime_.init();
     if (!result)
     {
-      vix::print("runtime init failed:", result.error().message());
+      vix::log::error("runtime init failed: {}", result.error().message());
       return false;
     }
 
@@ -114,14 +115,14 @@ namespace vixgame
     auto opened = context.window().open(config.window);
     if (!opened)
     {
-      vix::print("window open failed:", opened.error().message());
+      vix::log::error("window open failed: {}", opened.error().message());
       return false;
     }
 
     auto renderer_init = context.renderer().init(context.window());
     if (!renderer_init)
     {
-      vix::print("renderer init failed:", renderer_init.error().message());
+      vix::log::error("renderer init failed: {}", renderer_init.error().message());
       return false;
     }
 
@@ -140,7 +141,7 @@ namespace vixgame
 
     if (!scene)
     {
-      vix::print("scene creation failed:", scene.error().message());
+      vix::log::error("scene creation failed: {}", scene.error().message());
       return false;
     }
 
@@ -149,7 +150,7 @@ namespace vixgame
 
     if (!active)
     {
-      vix::print("scene activation failed:", active.error().message());
+      vix::log::error("scene activation failed: {}", active.error().message());
       return false;
     }
 

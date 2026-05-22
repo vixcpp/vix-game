@@ -87,12 +87,14 @@ namespace vixgame
         input.key_down(vix::game::InputKey::ArrowLeft))
     {
       direction.x -= 1.0F;
+      facing_ = PlayerFacing::Left;
     }
 
     if (input.key_down(vix::game::InputKey::D) ||
         input.key_down(vix::game::InputKey::ArrowRight))
     {
       direction.x += 1.0F;
+      facing_ = PlayerFacing::Right;
     }
 
     if (input.key_down(vix::game::InputKey::W) ||
@@ -129,6 +131,15 @@ namespace vixgame
   {
     vix::game::Transform2D transform =
         vix::game::Transform2D::at(position_);
+
+    if (facing_ == PlayerFacing::Left)
+    {
+      transform.scale = vix::game::Vec2{-1.0F, 1.0F};
+    }
+    else
+    {
+      transform.scale = vix::game::Vec2{1.0F, 1.0F};
+    }
 
     vix::game::Sprite sprite = vix::game::Sprite::from_asset(texture_);
     sprite.set_size(size_);

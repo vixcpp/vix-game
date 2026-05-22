@@ -73,6 +73,13 @@ namespace vixgame
      */
     void collect() noexcept;
 
+    /**
+     * @brief Move the coin to a new position and make it collectible again.
+     *
+     * @param position New coin position.
+     */
+    void respawn_at(const vix::game::Vec2 &position) noexcept;
+
   private:
     vix::game::Vec2 position_{680.0F, 260.0F};
     vix::game::Vec2 size_{64.0F, 64.0F};

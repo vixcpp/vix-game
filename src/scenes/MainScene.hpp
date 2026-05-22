@@ -62,10 +62,25 @@ namespace vixgame
      */
     void render(const vix::game::Frame &frame);
 
+    /**
+     * @brief Return true if the player is close enough to collect the coin.
+     *
+     * @return true when the coin should be collected.
+     */
+    [[nodiscard]] bool player_can_collect_coin() const noexcept;
+
+    /**
+     * @brief Compute the next coin position that does not overlap the player.
+     *
+     * @return New safe coin position.
+     */
+    [[nodiscard]] vix::game::Vec2 next_safe_coin_position() const noexcept;
+
   private:
     Player player_{};
     Coin coin_{};
     int score_{0};
+    int coin_spawn_index_{0};
   };
 
 } // namespace vixgame

@@ -101,4 +101,10 @@ namespace vixgame
     collected_ = true;
   }
 
+  void Coin::respawn_at(const vix::game::Vec2 &position) noexcept
+  {
+    position_ = position;
+    collected_ = false;
+  }
+
 } // namespace vixgame

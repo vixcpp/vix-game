@@ -28,7 +28,33 @@
 namespace vixgame
 {
   /**
+   * @brief Visual direction of the player.
+   *
+   * This enum stores the last horizontal direction used by the player.
+   * It is used only for rendering, so the player can visually face the
+   * direction in which it is moving.
+   */
+  enum class PlayerFacing
+  {
+    /**
+     * @brief Player is facing the right side of the screen.
+     */
+    Right,
+
+    /**
+     * @brief Player is facing the left side of the screen.
+     */
+    Left
+  };
+
+  /**
    * @brief Controllable player entity.
+   *
+   * The player owns its position, size, movement speed, visual facing
+   * direction, and texture asset identifier.
+   *
+   * It can load its texture, react to keyboard input, stay inside the
+   * game window, and draw itself through Renderer2D.
    */
   class Player
   {
@@ -36,8 +62,11 @@ namespace vixgame
     /**
      * @brief Load the player texture.
      *
-     * @param assets Asset manager.
-     * @param renderer Active renderer.
+     * The texture is loaded from the asset manager using the path defined
+     * in GameConfig, then uploaded to the active renderer.
+     *
+     * @param assets Asset manager used to load the texture.
+     * @param renderer Active renderer used to upload the texture.
      * @return true on success, or a structured game error.
      */
     [[nodiscard]] vix::game::GameBoolResult load(
@@ -45,10 +74,13 @@ namespace vixgame
         vix::game::Renderer &renderer);
 
     /**
-     * @brief Update player movement.
+     * @brief Update player movement and visual direction.
      *
-     * @param input Input system.
-     * @param frame Current frame.
+     * The player can be moved with WASD or arrow keys.
+     * Horizontal movement updates the visual facing direction.
+     *
+     * @param input Input system used to read keyboard state.
+     * @param frame Current frame information.
      */
     void update(
         const vix::game::InputSystem &input,
@@ -57,30 +89,62 @@ namespace vixgame
     /**
      * @brief Draw the player.
      *
-     * @param renderer Renderer2D facade.
+     * The sprite is rendered using the current texture, position, size,
+     * and visual facing direction.
+     *
+     * @param renderer Renderer2D facade used to draw the sprite.
      */
     void draw(vix::game::Renderer2D &renderer) const;
 
     /**
      * @brief Return player position.
+     *
+     * @return Constant reference to the player position.
      */
     [[nodiscard]] const vix::game::Vec2 &position() const noexcept;
 
     /**
      * @brief Return player size.
+     *
+     * @return Constant reference to the player size.
      */
     [[nodiscard]] const vix::game::Vec2 &size() const noexcept;
 
   private:
     /**
      * @brief Clamp the player inside the game window.
+     *
+     * This prevents the player from moving outside the visible world.
      */
     void clamp_to_world() noexcept;
 
   private:
+    /**
+     * @brief Current player position in world coordinates.
+     */
     vix::game::Vec2 position_{420.0F, 260.0F};
+
+    /**
+     * @brief Player sprite size.
+     */
     vix::game::Vec2 size_{96.0F, 96.0F};
+
+    /**
+     * @brief Player movement speed in pixels per second.
+     */
     float speed_{260.0F};
+
+    /**
+     * @brief Last horizontal visual direction of the player.
+     *
+     * This is updated when the player moves left or right and is used
+     * during rendering to flip the sprite horizontally.
+     */
+    PlayerFacing facing_{PlayerFacing::Right};
+
+    /**
+     * @brief Texture asset identifier used by the player sprite.
+     */
     vix::game::AssetId texture_{vix::game::invalid_asset_id};
   };
 
